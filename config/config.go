@@ -773,10 +773,10 @@ func (c *ScrapeConfig) Validate(globalConfig GlobalConfig) error {
 	}
 
 	switch globalConfig.MetricNameValidationScheme {
-	case "", LegacyValidationConfig:
-	case UTF8ValidationConfig:
+	case LegacyValidationConfig:
+	case "", UTF8ValidationConfig:
 		if model.NameValidationScheme != model.UTF8Validation {
-			return fmt.Errorf("utf8 name validation requested but feature not enabled via --enable-feature=utf8-names")
+			return fmt.Errorf("utf8 name validation requested but feature disabled --enable-feature=legacy-names")
 		}
 	default:
 		return fmt.Errorf("unknown name validation method specified, must be either 'legacy' or 'utf8', got %s", globalConfig.MetricNameValidationScheme)
